@@ -52,10 +52,8 @@ namespace BlazorChatSample.Client
         /// Ctor: create a new client for the given hub URL
         /// </summary>
         /// <param name="hubUrl"></param>
-        public ChatClient(string username, string hubUrl)
+        public ChatClient(string username)
         {
-            // save the hub url
-            _hubUrl = hubUrl ?? throw new ArgumentNullException(nameof(hubUrl));
             // save username
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentNullException(nameof(username));
@@ -67,9 +65,9 @@ namespace BlazorChatSample.Client
         }
 
         /// <summary>
-        /// The Hub URL for this client
+        /// The Hub URL for chat client
         /// </summary>
-        private readonly string _hubUrl;
+        const string HUBURL = "/chathub";
 
         /// <summary>
         /// Our unique key for this client instance
@@ -82,14 +80,14 @@ namespace BlazorChatSample.Client
         private readonly string _key;
 
         /// <summary>
+        /// Name of the chatter
+        /// </summary>
+        private readonly string _username;
+
+        /// <summary>
         /// Flag to show if started
         /// </summary>
         private bool _started = false;
-
-        /// <summary>
-        /// Name of the chatter
-        /// </summary>
-        private string _username;
 
 
         /// <summary>
@@ -104,9 +102,10 @@ namespace BlazorChatSample.Client
                 const string callbackClass = "BlazorChatSample.Client.ChatClient"; // include namespace
                 const string callbackMethod = "ReceiveMessage"; // static method to call
                 // invoke the JS interop start client method
-                var tmp = RegisteredFunction.Invoke<bool>("ChatClient.Start", _key, _hubUrl,
+                var tmp = RegisteredFunction.Invoke<bool>("ChatClient.Start", _key, HUBURL,
                     callbackAssembly, callbackClass, callbackMethod);
                 _started = true;
+                Send($"{_username} joined the chat");
             }
         }
 
@@ -149,6 +148,8 @@ namespace BlazorChatSample.Client
         {
             if (_started)
             {
+                // send
+                Send($"{_username} left the chat");
                 // disconnect the client
                 var tmp = RegisteredFunction.Invoke<bool>("ChatClient.Stop", _key);
                 _started = false;

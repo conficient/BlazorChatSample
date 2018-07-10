@@ -16,6 +16,7 @@ namespace BlazorChatSample.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSignalR();
 
             services.AddResponseCompression(options =>
             {
@@ -36,6 +37,12 @@ namespace BlazorChatSample.Server
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // setup SignalR
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Hubs.ChatHub>("/chathub");
+            });
 
             app.UseMvc(routes =>
             {
