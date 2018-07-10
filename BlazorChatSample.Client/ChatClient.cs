@@ -37,7 +37,15 @@ namespace BlazorChatSample.Client
             if (_clients.ContainsKey(key))
             {
                 var client = _clients[key];
-                client.HandleReceiveMessage(username, message);
+                switch (method)
+                {
+                    case "ReceiveMessage":
+                        client.HandleReceiveMessage(username, message);
+                        return;
+
+                    default:
+                        throw new NotImplementedException(method);
+                }
             }
             else
             {
@@ -105,7 +113,6 @@ namespace BlazorChatSample.Client
                 var tmp = RegisteredFunction.Invoke<bool>("ChatClient.Start", _key, HUBURL,
                     callbackAssembly, callbackClass, callbackMethod);
                 _started = true;
-                Send($"{_username} joined the chat");
             }
         }
 
@@ -148,8 +155,6 @@ namespace BlazorChatSample.Client
         {
             if (_started)
             {
-                // send
-                Send($"{_username} left the chat");
                 // disconnect the client
                 var tmp = RegisteredFunction.Invoke<bool>("ChatClient.Stop", _key);
                 _started = false;

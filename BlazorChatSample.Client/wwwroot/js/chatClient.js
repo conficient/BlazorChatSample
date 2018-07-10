@@ -67,6 +67,7 @@ Blazor.registerFunction('ChatClient.Stop', function (key) {
     // locate the SignalR connection
     var connection = connections[key];
     if (connection) {
+        // stop
         connection.stop();
         console.log("Connection stopped");
         // remove refs

@@ -126,7 +126,7 @@ app {
     border: 1px solid #aaa;
     border-radius: 5px;
     background-color: #eee;
-    margin-right: 20%;
+    margin: 5px 20% 5px 0;
     padding: 10px 5px;
 }
 
@@ -135,8 +135,8 @@ app {
     border: 1px solid #74a2bd;
     border-radius: 5px;
     background-color: #a1cfea;
-    margin-left: 20%;
-    padding: 10px 5px;
+    padding: 10px;
+    margin: 5px 0px 5px 20%;
 }
 
 textarea {
@@ -145,4 +145,13 @@ textarea {
     width: 80%;
     overflow: auto;
     background: #f7f7f7
+}
+
+.user {
+    font-size: 10pt;
+    color: #888;
+}
+
+.msg {
+    display: inline;
 }
