@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BlazorChatSample.Shared\BlazorChatSample.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

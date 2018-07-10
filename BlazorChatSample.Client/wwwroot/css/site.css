@@ -121,3 +121,28 @@ app {
         display: block;
     }
 }
+
+.sent {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #eee;
+    margin-right: 20%;
+    padding: 10px 5px;
+}
+
+.received {
+    text-align: right;
+    border: 1px solid #74a2bd;
+    border-radius: 5px;
+    background-color: #a1cfea;
+    margin-left: 20%;
+    padding: 10px 5px;
+}
+
+textarea {
+    border: 1px dashed #888;
+    border-radius: 5px;
+    width: 80%;
+    overflow: auto;
+    background: #f7f7f7
+}
