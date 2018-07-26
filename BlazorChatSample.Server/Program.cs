@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Blazor.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
