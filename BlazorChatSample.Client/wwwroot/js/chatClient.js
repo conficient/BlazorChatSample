@@ -12,8 +12,9 @@ window.ChatClient = {
 
     // key: key to use to access the SignalR client created
     // hubUrl: url to the chat hub
-    // assembly:   the method to call when
-    Start: function (key, hubUrl, assembly) {
+    // assembly:   the assembly containing the method
+    // method: name of the method to call, with [JSInvokable] attribute
+    Start: function (key, hubUrl, assembly, method) {
         // key is the unique key we use to store/retrieve connections
         console.log("Connection start");
 
@@ -30,7 +31,7 @@ window.ChatClient = {
             console.log("Connection message received for " + key + " from " + username);
             // invoke Blazor dotnet method 
             // we pass the key in so we know which client received the message
-            DotNet.invokeMethod(assembly, key, "ReceiveMessage", username, message);
+            DotNet.invokeMethod(assembly, method, key, "ReceiveMessage", username, message);
         });
 
         // start the connection

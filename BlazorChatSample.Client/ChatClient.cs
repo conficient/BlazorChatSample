@@ -107,10 +107,11 @@ namespace BlazorChatSample.Client
             if (!_started)
             {
                 // the callback method for inbound messages
-                const string callbackMethod = "ReceiveMessage"; // static method to call
+                const string assembly = "BlazorChatSample.Client";
+                const string method = "ReceiveMessage";
                 // invoke the JS interop start client method
                 Console.WriteLine("ChatClient: calling Start()");
-                var tmp = await JSRuntime.Current.InvokeAsync<bool>("ChatClient.Start", _key, HUBURL, callbackMethod);
+                var tmp = await JSRuntime.Current.InvokeAsync<object>("ChatClient.Start", _key, HUBURL, assembly, method);
                 Console.WriteLine("ChatClient: Start returned");
                 _started = true;
             }
@@ -145,7 +146,7 @@ namespace BlazorChatSample.Client
             if (!_started)
                 throw new InvalidOperationException("Client not started");
             // send the message
-            await JSRuntime.Current.InvokeAsync<string>("ChatClient.Send", _key, _username, message);
+            await JSRuntime.Current.InvokeAsync<object>("ChatClient.Send", _key, _username, message);
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace BlazorChatSample.Client
             if (_started)
             {
                 // disconnect the client
-                await JSRuntime.Current.InvokeAsync<bool>("ChatClient.Stop", _key);
+                await JSRuntime.Current.InvokeAsync<object>("ChatClient.Stop", _key);
                 _started = false;
             }
         }
