@@ -51,12 +51,8 @@ namespace BlazorChatSample.Server
             });
 
             //not used in 0.5.0?
-            //app.UseBlazor<Client.Program>();
+            app.UseBlazor<Client.Program>();
         }
 
-        public void Configure(IBlazorApplicationBuilder app)
-        {
-            app.AddComponent<Client.App>("app");
-        }
     }
 }
