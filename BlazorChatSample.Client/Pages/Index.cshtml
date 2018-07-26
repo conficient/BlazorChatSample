@@ -22,10 +22,16 @@
         </p>
 
         <p>
-            At the present time, Blazor (version 0.4) cannot use the .NET Core SignalR client library
+            At the present time, Blazor (version 0.5.0) cannot use the .NET Core SignalR client library
             (<a href="https://github.com/aspnet/Blazor/issues/20">see issue #20</a>), so this application
             uses the <a href="https://blazor.net/docs/javascript-interop.html">Blazor Javascript interop library</a>
             to talk to the SignalR Javascript client.
+        </p>
+        <p>
+            This version of the app has been updated to handle the new JSInterop in 0.5.0 
+            (see https://blazor.net/docs/javascript-interop.html). A few parts of the documentation are not 
+            that clear so I will submit a pull request to clarify these. In particular you have to call 
+            <code>invokeAsync&lt;object&gt;</code> to invoke a Javascript method even if it does not return a value.
         </p>
         <p>
             Source code at <a href="https://github.com/conficient/BlazorChatSample">Github</a>.
