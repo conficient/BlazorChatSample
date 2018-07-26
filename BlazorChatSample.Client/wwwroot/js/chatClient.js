@@ -5,7 +5,10 @@
 // 
 var connections = {};
 
-Blazor.registerFunction('ChatClient.Start',
+// v0.5.0 interop changes - use a window.{object} as a container
+//
+window.ChatClient = {
+
 
     // key: key to use to access the SignalR client created
     // hubUrl: url to the chat hub
@@ -13,7 +16,7 @@ Blazor.registerFunction('ChatClient.Start',
     // callbackAssembly: assembly that contains the Blazor code to call
     // callbackClass:    the class containing the callback method
     // callbackMethod:   the method to call when
-    function (key, hubUrl, callbackAssembly, callbackClass, callbackMethod) {
+    Start: function (key, hubUrl, callbackAssembly, callbackClass, callbackMethod) {
         // key is the unique key we use to store/retrieve connections
         console.log("Connection start");
 
@@ -43,38 +46,39 @@ Blazor.registerFunction('ChatClient.Start',
         connection.start();
         // store connection in our lookup object
         connections[key] = connection;
-    });
+    },
 
-// 
-// function called when Blazor client wishes to send a message via SignalR
-//
-Blazor.registerFunction('ChatClient.Send', function (key, username, message) {
-    console.log("Connection send request");
-    var connection = connections[key];
-    if (!connection) throw "Connection not found for " + key;
-    console.log("Connection located");
-    // send message
-    connection.invoke("SendMessage", username, message);
-    // dummy
-    return "ok";
-});
+    // 
+    // function called when Blazor client wishes to send a message via SignalR
+    //
+    Send: function (key, username, message) {
+        console.log("Connection send request");
+        var connection = connections[key];
+        if (!connection) throw "Connection not found for " + key;
+        console.log("Connection located");
+        // send message
+        connection.invoke("SendMessage", username, message);
+        // dummy
+        return "ok";
+    },
 
-//
-// close and dispose of a connection
-//
-Blazor.registerFunction('ChatClient.Stop', function (key) {
-    console.log("Connection stop request: " + key);
-    // locate the SignalR connection
-    var connection = connections[key];
-    if (connection) {
-        // stop
-        connection.stop();
-        console.log("Connection stopped");
-        // remove refs
-        delete connections[key];
-        connection = null;
+    //
+    // close and dispose of a connection
+    //
+    Stop: function (key) {
+        console.log("Connection stop request: " + key);
+        // locate the SignalR connection
+        var connection = connections[key];
+        if (connection) {
+            // stop
+            connection.stop();
+            console.log("Connection stopped");
+            // remove refs
+            delete connections[key];
+            connection = null;
+        }
+        else
+            console.log("Connection not found for " + key);
     }
-    else
-        console.log("Connection not found for " + key);
-});
+};
 
