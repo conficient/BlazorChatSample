@@ -34,6 +34,9 @@ namespace BlazorChatSample.Server
         {
             app.UseResponseCompression();
 
+            // enable websockets - not enabled by default in 2.1?
+            app.UseWebSockets();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
