@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Blazor.Server;
+﻿using Microsoft.AspNetCore.Blazor.Builder;
+using Microsoft.AspNetCore.Blazor.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -49,7 +50,13 @@ namespace BlazorChatSample.Server
                 routes.MapRoute(name: "default", template: "{controller}/{action}/{id?}");
             });
 
-            app.UseBlazor<Client.Program>();
+            //not used in 0.5.0?
+            //app.UseBlazor<Client.Program>();
+        }
+
+        public void Configure(IBlazorApplicationBuilder app)
+        {
+            app.AddComponent<Client.App>("app");
         }
     }
 }
