@@ -70,123 +70,125 @@
 
 
 @functions  {
-    // flag to indicate chat status
-    bool chatting = false;
+// flag to indicate chat status
+bool chatting = false;
 
-    // name of the user who will be chatting
-    string username;
+// name of the user who will be chatting
+string username;
 
-    ChatClient client;
+ChatClient client;
 
-    // on-screen message
-    string message;
+// on-screen message
+string message;
 
-    // new message input
-    string newMessage;
+// new message input
+string newMessage;
 
-    // list of messages in chat
-    List<Message> messages = new List<Message>();
+// list of messages in chat
+List<Message> messages = new List<Message>();
+
+/// <summary>
+/// Start chat client
+/// </summary>
+async Task Chat()
+{
+    // check username is valid
+    if (string.IsNullOrWhiteSpace(username))
+    {
+        message = "Please enter a name";
+        return;
+    };
+
+    try
+    {
+        // remove old messages if any
+        messages.Clear();
+
+        // Create the chat client
+        client = new ChatClient(username);
+        // add an event handler for incoming messages
+        client.MessageReceived += MessageReceived;
+        // start the client
+        Console.WriteLine($"Index: chart starting...");
+        await client.Start();
+        Console.WriteLine($"Index: chart started?");
+
+        chatting = true;
+    }
+    catch (Exception e)
+    {
+        message = $"ERROR: Failed to start chat client: {e.Message}";
+        Console.WriteLine(e.Message);
+        Console.WriteLine(e.StackTrace);
+    }
+}
+
+/// <summary>
+/// Inbound message
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
+void MessageReceived(object sender, MessageReceivedEventArgs e)
+{
+    Console.WriteLine($"Blazor: receive {e.Username}: {e.Message}");
+    bool isMine = false;
+    if (!string.IsNullOrWhiteSpace(e.Username))
+        isMine = string.Equals(e.Username, username, StringComparison.CurrentCultureIgnoreCase);
+
+    var newMsg = new Message(e.Username, e.Message, isMine);
+    messages.Add(newMsg);
+
+    // Inform blazor the UI needs updating
+    StateHasChanged();
+}
+
+async Task Disconnect()
+{
+    if (chatting)
+    {
+        await client.Stop();
+        client.Dispose();
+        client = null;
+        message = "chat ended";
+        chatting = false;
+    }
+}
+
+
+async Task Send()
+{
+    if (chatting && !string.IsNullOrWhiteSpace(newMessage))
+    {
+        // send message to hub
+        await client.Send(newMessage);
+        // clear input box
+        newMessage = "";
+    }
+}
+
+class Message
+{
+    public Message(string username, string body, bool mine)
+    {
+        Username = username;
+        Body = body;
+        Mine = mine;
+    }
+
+    public string Username { get; set; }
+    public string Body { get; set; }
+    public bool Mine { get; set; }
 
     /// <summary>
-    /// Start chat client
+    /// Determine CSS classes to use for message div
     /// </summary>
-    void Chat()
+    public string CSS
     {
-        // check username is valid
-        if (string.IsNullOrWhiteSpace(username))
+        get
         {
-            message = "Please enter a name";
-            return;
-        };
-
-        try
-        {
-            // remove old messages if any
-            messages.Clear();
-
-            // Create the chat client
-            client = new ChatClient(username);
-            // add an event handler for incoming messages
-            client.MessageReceived += MessageReceived;
-            // start the client
-            client.Start();
-
-            chatting = true;
-        }
-        catch (Exception e)
-        {
-            message = $"ERROR: Failed to start chat client: {e.Message}";
-            Console.WriteLine(e.Message);
-            Console.WriteLine(e.StackTrace);
+            return Mine ? "sent" : "received";
         }
     }
 
-    /// <summary>
-    /// Inbound message
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    void MessageReceived(object sender, MessageReceivedEventArgs e)
-    {
-        Console.WriteLine($"Blazor: receive {e.Username}: {e.Message}");
-        bool isMine = false;
-        if(!string.IsNullOrWhiteSpace(e.Username))
-            isMine= string.Equals(e.Username, username, StringComparison.CurrentCultureIgnoreCase);
-
-        var newMsg = new Message(e.Username, e.Message, isMine);
-        messages.Add(newMsg);
-
-        // Inform blazor the UI needs updating
-        StateHasChanged();
-    }
-
-    void Disconnect()
-    {
-        if (chatting)
-        {
-            client.Stop();
-            client.Dispose();
-            client = null;
-            message = "chat ended";
-            chatting = false;
-        }
-    }
-
-
-    void Send()
-    {
-        if (chatting && !string.IsNullOrWhiteSpace(newMessage))
-        {
-            // send message to hub
-            client.Send(newMessage);
-            // clear input box
-            newMessage = "";
-        }
-    }
-
-    class Message
-    {
-        public Message(string username, string body, bool mine)
-        {
-            Username = username;
-            Body = body;
-            Mine = mine;
-        }
-
-        public string Username { get; set; }
-        public string Body { get; set; }
-        public bool Mine { get; set; }
-
-        /// <summary>
-        /// Determine CSS classes to use for message div
-        /// </summary>
-        public string CSS
-        {
-            get
-            {
-                return Mine ? "sent" : "received";
-            }
-        }
-
-    }
+}
 }

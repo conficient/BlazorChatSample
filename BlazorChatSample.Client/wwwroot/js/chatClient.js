@@ -12,19 +12,10 @@ window.ChatClient = {
 
     // key: key to use to access the SignalR client created
     // hubUrl: url to the chat hub
-    // callback: defines a Blazor method to call when incoming messages are received
-    // callbackAssembly: assembly that contains the Blazor code to call
-    // callbackClass:    the class containing the callback method
-    // callbackMethod:   the method to call when
-    Start: function (key, hubUrl, callbackAssembly, callbackClass, callbackMethod) {
+    // assembly:   the method to call when
+    Start: function (key, hubUrl, assembly) {
         // key is the unique key we use to store/retrieve connections
         console.log("Connection start");
-
-        // set up callback for received messages
-        var callback = {
-            type: { assembly: callbackAssembly, name: callbackClass },
-            method: { name: callbackMethod }
-        };
 
         // create a client
         console.log("Connection being started for " + hubUrl);
@@ -39,13 +30,17 @@ window.ChatClient = {
             console.log("Connection message received for " + key + " from " + username);
             // invoke Blazor dotnet method 
             // we pass the key in so we know which client received the message
-            Blazor.invokeDotNetMethod(callback, key, "ReceiveMessage", username, message);
+            DotNet.invokeMethod(assembly, key, "ReceiveMessage", username, message);
         });
 
         // start the connection
-        connection.start();
+        var result = connection.start();
+
         // store connection in our lookup object
         connections[key] = connection;
+
+        console.log("Connection start: returning a promise?");
+        return result;
     },
 
     // 
@@ -56,10 +51,8 @@ window.ChatClient = {
         var connection = connections[key];
         if (!connection) throw "Connection not found for " + key;
         console.log("Connection located");
-        // send message
-        connection.invoke("SendMessage", username, message);
-        // dummy
-        return "ok";
+        // send message (async)
+        return connection.invoke("SendMessage", username, message);
     },
 
     //
@@ -71,14 +64,16 @@ window.ChatClient = {
         var connection = connections[key];
         if (connection) {
             // stop
-            connection.stop();
-            console.log("Connection stopped");
+            var result = connection.stop();
+            console.log("Connection stopping");
             // remove refs
             delete connections[key];
             connection = null;
+            return result;
         }
         else
             console.log("Connection not found for " + key);
+        return null;
     }
 };
 

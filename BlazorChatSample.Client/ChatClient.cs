@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Blazor.Browser.Interop;
+﻿using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +32,7 @@ namespace BlazorChatSample.Client
         /// <remarks>
         /// This method is called from Javascript when amessage is received
         /// </remarks>
+        [JSInvokable]
         public static void ReceiveMessage(string key, string method, string username, string message)
         {
             if (_clients.ContainsKey(key))
@@ -101,17 +102,16 @@ namespace BlazorChatSample.Client
         /// <summary>
         /// Start the SignalR client on JS
         /// </summary>
-        public void Start()
+        public async Task Start()
         {
             if (!_started)
             {
-                // the callback values for inbound messages
-                const string callbackAssembly = "BlazorChatSample.Client.dll";
-                const string callbackClass = "BlazorChatSample.Client.ChatClient"; // include namespace
+                // the callback method for inbound messages
                 const string callbackMethod = "ReceiveMessage"; // static method to call
                 // invoke the JS interop start client method
-                var tmp = RegisteredFunction.Invoke<bool>("ChatClient.Start", _key, HUBURL,
-                    callbackAssembly, callbackClass, callbackMethod);
+                Console.WriteLine("ChatClient: calling Start()");
+                var tmp = await JSRuntime.Current.InvokeAsync<bool>("ChatClient.Start", _key, HUBURL, callbackMethod);
+                Console.WriteLine("ChatClient: Start returned");
                 _started = true;
             }
         }
@@ -139,24 +139,24 @@ namespace BlazorChatSample.Client
         /// Send a message to the hub
         /// </summary>
         /// <param name="message">message to send</param>
-        public void Send(string message)
+        public async Task Send(string message)
         {
             // check we are connected
             if (!_started)
                 throw new InvalidOperationException("Client not started");
             // send the message
-            var tmp = RegisteredFunction.Invoke<string>("ChatClient.Send", _key, _username, message);
+            await JSRuntime.Current.InvokeAsync<string>("ChatClient.Send", _key, _username, message);
         }
 
         /// <summary>
         /// Stop the client (if started)
         /// </summary>
-        public void Stop()
+        public async Task Stop()
         {
             if (_started)
             {
                 // disconnect the client
-                var tmp = RegisteredFunction.Invoke<bool>("ChatClient.Stop", _key);
+                await JSRuntime.Current.InvokeAsync<bool>("ChatClient.Stop", _key);
                 _started = false;
             }
         }
@@ -166,8 +166,15 @@ namespace BlazorChatSample.Client
         /// </summary>
         public void Dispose()
         {
+            Console.WriteLine("ChatClient: Disposing");
             // ensure we stop if connected
-            if (_started) Stop();
+            if (_started)
+            {
+                Task.Run(async () =>
+                {
+                    await Stop();
+                }).Wait();
+            }
 
             // remove this key from the list of clients
             if (_clients.ContainsKey(_key))
