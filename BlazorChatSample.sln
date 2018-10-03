@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorChatSample.Server", "BlazorChatSample.Server\BlazorChatSample.Server.csproj", "{60B3A1F2-B3D2-491E-98CB-D15343D8384F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChatSample.Server", "BlazorChatSample.Server\BlazorChatSample.Server.csproj", "{60B3A1F2-B3D2-491E-98CB-D15343D8384F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorChatSample.Client", "BlazorChatSample.Client\BlazorChatSample.Client.csproj", "{21C1FE9F-16FB-4A1B-A06B-6EDA345C4F2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChatSample.Client", "BlazorChatSample.Client\BlazorChatSample.Client.csproj", "{21C1FE9F-16FB-4A1B-A06B-6EDA345C4F2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
