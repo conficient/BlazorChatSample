@@ -17,9 +17,9 @@ namespace BlazorChatSample.Client
         #region static methods
 
         /// <summary>
-        /// internal dictionary of SignalRclients by Key
+        /// internal dictionary of SignalR clients by Key
         /// </summary>
-        private static Dictionary<string, ChatClient> _clients = new Dictionary<string, ChatClient>();
+        private static readonly Dictionary<string, ChatClient> _clients = new Dictionary<string, ChatClient>();
 
 
         /// <summary>
@@ -61,8 +61,9 @@ namespace BlazorChatSample.Client
         /// Ctor: create a new client for the given hub URL
         /// </summary>
         /// <param name="hubUrl"></param>
-        public ChatClient(string username)
+        public ChatClient(string username, IJSRuntime JSRuntime)
         {
+            _JSruntime = JSRuntime;
             // save username
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentNullException(nameof(username));
@@ -98,6 +99,11 @@ namespace BlazorChatSample.Client
         /// </summary>
         private bool _started = false;
 
+        /// <summary>
+        /// JS runtime from DI
+        /// </summary>
+        private readonly IJSRuntime _JSruntime;
+
 
         /// <summary>
         /// Start the SignalR client on JS
@@ -111,7 +117,7 @@ namespace BlazorChatSample.Client
                 const string method = "ReceiveMessage";
                 // invoke the JS interop start client method
                 Console.WriteLine("ChatClient: calling Start()");
-                var tmp = await JSRuntime.Current.InvokeAsync<object>("ChatClient.Start", _key, HUBURL, assembly, method);
+                var _ = await _JSruntime.InvokeAsync<object>("ChatClient.Start", _key, HUBURL, assembly, method);
                 Console.WriteLine("ChatClient: Start returned");
                 _started = true;
             }
@@ -146,7 +152,7 @@ namespace BlazorChatSample.Client
             if (!_started)
                 throw new InvalidOperationException("Client not started");
             // send the message
-            await JSRuntime.Current.InvokeAsync<object>("ChatClient.Send", _key, _username, message);
+            await _JSruntime.InvokeAsync<object>("ChatClient.Send", _key, _username, message);
         }
 
         /// <summary>
@@ -157,7 +163,7 @@ namespace BlazorChatSample.Client
             if (_started)
             {
                 // disconnect the client
-                await JSRuntime.Current.InvokeAsync<object>("ChatClient.Stop", _key);
+                await _JSruntime.InvokeAsync<object>("ChatClient.Stop", _key);
                 _started = false;
             }
         }
