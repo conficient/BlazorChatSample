@@ -47,4 +47,7 @@ the connection back to Blazor to tell it which client received the message.
 
 If you have any improvements or suggestions please submit as issues/pull requests on the Github repo.
 
+### Acknowledgements
 
+Thanks to Code-Boxx for the article https://code-boxx.com/responsive-css-speech-bubbles/ 
+that helped me create simple CSS speech bubbles that improve the layout.
