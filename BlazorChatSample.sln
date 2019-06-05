@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChatSample.Server", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChatSample.Client", "BlazorChatSample.Client\BlazorChatSample.Client.csproj", "{21C1FE9F-16FB-4A1B-A06B-6EDA345C4F2D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{DC59E8D8-30F7-493B-AC7D-5966AA67298A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
