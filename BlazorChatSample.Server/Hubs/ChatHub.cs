@@ -41,6 +41,7 @@ namespace BlazorChatSample.Server.Hubs
             var currentId = Context.ConnectionId;
             if (!userLookup.ContainsKey(currentId))
             {
+                // maintain a lookup of connectionId-to-username
                 userLookup.Add(currentId, username);
                 // re-use existing message for now
                 await Clients.AllExcept(currentId).SendAsync("ReceiveMessage", username, $"{username} joined the chat");
