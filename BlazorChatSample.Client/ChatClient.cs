@@ -120,6 +120,9 @@ namespace BlazorChatSample.Client
                 var _ = await _JSruntime.InvokeAsync<object>("ChatClient.Start", _key, HUBURL, assembly, method);
                 Console.WriteLine("ChatClient: Start returned");
                 _started = true;
+
+                // register user
+                await _JSruntime.InvokeAsync<object>("ChatClient.Register", _key, _username);
             }
         }
 
