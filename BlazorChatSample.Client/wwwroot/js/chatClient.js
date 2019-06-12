@@ -45,6 +45,18 @@ window.ChatClient = {
     },
 
     // 
+    // function called when Blazor client wishes to register username
+    //
+    Register: function (key, username) {
+        console.log("Connection register user " + username);
+        var connection = connections[key];
+        if (!connection) throw "Connection not found for " + key;
+        console.log("Connection located");
+        // send message (async)
+        return connection.invoke("Register", username);
+    },
+    
+    // 
     // function called when Blazor client wishes to send a message via SignalR
     //
     Send: function (key, username, message) {
