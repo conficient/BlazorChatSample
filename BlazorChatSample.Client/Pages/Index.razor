@@ -5,9 +5,8 @@
     @if (chatting)
     {
         <p>You are connected as <b>@username</b></p>
-        <button class="btn btn-sm btn-warning ml-md-auto" onclick="@Disconnect">Disconnect</button>
+        <button class="btn btn-sm btn-warning ml-md-auto" @onclick="@Disconnect">Disconnect</button>
     }
-    @*<a href="https://github.com/conficient/BlazorChatSample" target="_blank" class="ml-md-auto">About</a>*@
 </div>
 
 <div class="content px-4">
@@ -16,28 +15,8 @@
 
     @if (!chatting)
     {
-        <p>
-            This application demonstrates the use of <a href="https://www.asp.net/signalr">SignalR</a>
-            to create a <a href="https://blazor.net/">Blazor</a> chat application.
-        </p>
-
-        <p>
-            At the present time, Blazor (.NET Core 3 preview 5) cannot use the .NET Core SignalR client library
-            (<a href="https://github.com/aspnet/Blazor/issues/20">see issue #20</a>), so this application
-            uses the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interop?view=aspnetcore-3.0">Blazor Javascript interop</a>
-            capability to talk to the <a href="https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-2.2">SignalR Javascript client</a>.
-        </p>
-        <p>
-            This version of the app has been updated for the .NET Core 3.0 Preview 5 version of Blazor
-            (see https://blazor.net/docs/javascript-interop.html). A few parts of the documentation are not
-            that clear so I will submit a pull request to clarify these. In particular you have to call
-            <code>invokeAsync&lt;object&gt;</code> to invoke a Javascript method even if it does not return a value.
-        </p>
-        <p>
-            Source code at <a href="https://github.com/conficient/BlazorChatSample">Github</a>.
-        </p>
-
-        <hr />
+        @* Moved instructions to shared component *@
+        <Instructions />
 
         <h2>Chat</h2>
 
@@ -45,8 +24,8 @@
             Enter your name to start chatting:
         </p>
 
-        <input type="text" maxlength="32" bind="@username" />
-        <button type="button" onclick="@Chat"><span class="oi oi-chat" aria-hidden="true"></span> Chat!</button>
+        <input type="text" maxlength="32" @bind="@username" />
+        <button type="button" @onclick="@Chat"><span class="oi oi-chat" aria-hidden="true"></span> Chat!</button>
 
         @if (message != null)
         {
@@ -67,13 +46,13 @@
                 </div>
             }
             <hr />
-            <textarea class="input-lg" placeholder="enter your comment" bind="@newMessage"></textarea>
-            <button class="btn btn-default" onclick="@Send">Send</button>
+            <textarea class="input-lg" placeholder="enter your comment" @bind="@newMessage"></textarea>
+            <button class="btn btn-default" @onclick="@Send">Send</button>
         </div>
     }
 </div>
 
-@functions  {
+@code  {
     // flag to indicate chat status
     bool chatting = false;
 
