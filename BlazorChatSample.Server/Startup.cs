@@ -43,7 +43,7 @@ namespace BlazorChatSample.Server
 
             app.UseRouting();
 
-            const string projectName = "blazorchatsample";
+            const string projectName = "blazorchatsampleclient";
             ConfigureStatics(app, projectName);
 
             app.UseEndpoints(endpoints =>
