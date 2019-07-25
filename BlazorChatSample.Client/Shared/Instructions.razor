@@ -4,14 +4,14 @@
 </p>
 
 <p>
-    At the present time, Blazor (.NET Core 3 preview 6) cannot use the .NET Core SignalR client library
+    At the present time, Blazor (.NET Core 3 preview 7) cannot use the .NET Core SignalR client library
     (<a href="https://github.com/aspnet/Blazor/issues/20">see issue #20</a>), so this application
     uses the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interop?view=aspnetcore-3.0">Blazor Javascript interop</a>
     capability to talk to the <a href="https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-2.2">SignalR Javascript client</a>.
 </p>
 <p>
-    This version of the app has been updated for the [.NET Core 3.0 Preview 6](https://devblogs.microsoft.com/aspnet/asp-net-core-and-blazor-updates-in-net-core-3-0-preview-6/) 
-    version of Blazor (see https://blazor.net/docs/javascript-interop.html). A few parts of the documentation are not
+    This version of the app has been updated for the <a href='https://devblogs.microsoft.com/aspnet/asp-net-core-and-blazor-updates-in-net-core-3-0-preview-7/'>.NET Core 3.0 Preview 7</a>
+    version of Blazor (see https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-3.0#javascript-interop). A few parts of the documentation are not
     that clear so I will submit a pull request to clarify these. In particular you have to call
     <code>invokeAsync&lt;object&gt;</code> to invoke a Javascript method even if it does not return a value.
 </p>
