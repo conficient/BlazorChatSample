@@ -1,17 +1,17 @@
 # Blazor Chat Sample
 
-> Now upgraded for [.NET core 3.0 preview 6](https://devblogs.microsoft.com/aspnet/asp-net-core-and-blazor-updates-in-net-core-3-0-preview-6/)
+> Now upgraded for [.NET core 3.0 preview 7](https://devblogs.microsoft.com/aspnet/asp-net-core-and-blazor-updates-in-net-core-3-0-preview-7/)
 
 This application demonstrates the use of [SignalR](https://www.asp.net/signalr) 
 to create a [Blazor](https://blazor.net/) chat application.
 
-At the present time, Blazor (.NET Core 3 preview 6) cannot use the .NET Core SignalR client library 
+At the present time, Blazor (.NET Core 3 preview 7) cannot use the .NET Core SignalR client library 
 ([see issue #20](https://github.com/aspnet/Blazor/issues/20)), so this application uses the 
 [Blazor Javascript interop](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interop?view=aspnetcore-3.0)
 capability to talk to the [SignalR Javascript client](https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-2.2).
         
-This version of the app has been updated for the .NET Core 3.0 Preview 6 version of Blazor
-(see https://blazor.net/docs/javascript-interop.html). 
+This version of the app has been updated for the .NET Core 3.0 Preview 7 version of Blazor
+(see https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-3.0#javascript-interop). 
 
 ## Demo
 
