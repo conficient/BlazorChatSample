@@ -1,5 +1,7 @@
 # Blazor Chat Sample
 
+[![Build Status](https://dev.azure.com/conficient/BlazorChatSample/_apis/build/status/conficient.BlazorChatSample?branchName=master)](https://dev.azure.com/conficient/BlazorChatSample/_build/latest?definitionId=2&branchName=master)
+
 > Now upgraded for [.NET core 3.0 preview 9](https://devblogs.microsoft.com/aspnet/asp-net-core-and-blazor-updates-in-net-core-3-0-preview-9/)
 
 This application demonstrates the use of [SignalR](https://www.asp.net/signalr) 
