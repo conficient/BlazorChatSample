@@ -13,10 +13,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreInstaller@0
+- task: UseDotNet@2
   displayName: 'Installing .NET Core SDK for Preview9...'
   inputs:
-    version: 3.0.100-preview9-014004
+    packageType: 'sdk'
+    version: '3.0.100-preview9-014004'
 
 - script: dotnet build --configuration $(buildConfiguration) BlazorChatSample.sln
   displayName: 'Building $(buildConfiguration)...'
