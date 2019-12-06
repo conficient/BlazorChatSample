@@ -14,24 +14,16 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Installing .NET Core SDK 3.0.100'
+  displayName: 'Installing .NET Core SDK 3.1.100'
   inputs:
     packageType: 'sdk'
-    version: '3.0.100'
+    version: '3.1.100'
 
 - script: dotnet build --configuration $(buildConfiguration) BlazorChatSample.sln
   displayName: 'Building $(buildConfiguration)...'
 
-- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --framework netcoreapp3.0 --self-contained true --runtime win-x86 BlazorChatSample.Server\BlazorChatSample.Server.csproj
+- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --framework netcoreapp3.1 --self-contained true --runtime win-x86 BlazorChatSample.Server\BlazorChatSample.Server.csproj
   displayName: 'Publishing $(buildConfiguration)...'
   
-# - task: DotNetCoreCLI@2
-#   displayName: 'Publishing App...'
-#   inputs:
-#     command: publish 
-#     projects: BlazorChatSample.Server\BlazorChatSample.Server.csproj
-#     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#     zipAfterPublish: false
-
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing Build Artifacts...'
