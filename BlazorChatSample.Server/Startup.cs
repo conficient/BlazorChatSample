@@ -37,18 +37,19 @@ namespace BlazorChatSample.Server
                 app.UseBlazorDebugging();
             }
 
-            // preview 7 fixed the bug in the build
             app.UseStaticFiles();
-            app.UseClientSideBlazorFiles<Client.Startup>();
+            // version 3.2.0 preview 1 - startup is now removed
+            app.UseClientSideBlazorFiles<Client.Program>();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                // new SignalR endpoint routing setup
+                // SignalR endpoint routing setup
                 endpoints.MapHub<Hubs.ChatHub>("/chathub");
-                endpoints.MapFallbackToClientSideBlazor<Client.Startup>("index.html");
+                // version 3.2.0 preview 1 - startup is now removed
+                endpoints.MapFallbackToClientSideBlazor<Client.Program>("index.html");
             });
         }
 
