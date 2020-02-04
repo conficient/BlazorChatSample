@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using BlazorChatSample.Shared;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace BlazorChatSample.Server.Hubs
         /// <returns></returns>
         public async Task SendMessage(string username, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", username, message);
+            await Clients.All.SendAsync(Messages.RECEIVE, username, message);
         }
 
         /// <summary>
@@ -44,7 +45,9 @@ namespace BlazorChatSample.Server.Hubs
                 // maintain a lookup of connectionId-to-username
                 userLookup.Add(currentId, username);
                 // re-use existing message for now
-                await Clients.AllExcept(currentId).SendAsync("ReceiveMessage", username, $"{username} joined the chat");
+                await Clients.AllExcept(currentId).SendAsync(
+                    Messages.RECEIVE,
+                    username, $"{username} joined the chat");
             }
         }
 
@@ -65,14 +68,16 @@ namespace BlazorChatSample.Server.Hubs
         /// <returns></returns>
         public override async Task OnDisconnectedAsync(Exception e)
         {
-            Console.WriteLine($"Disconnected {e?.Message}");
+            Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
             // try to get connection
             string id = Context.ConnectionId;
-            if (userLookup.TryGetValue(id, out string username))
-            {
-                userLookup.Remove(id);
-                await Clients.AllExcept(Context.ConnectionId).SendAsync("ReceiveMessage", username, $"{username} has left the chat");
-            }
+            if (!userLookup.TryGetValue(id, out string username))
+                username = "[unknown]";
+
+            userLookup.Remove(id);
+            await Clients.AllExcept(Context.ConnectionId).SendAsync(
+                Messages.RECEIVE,
+                username, $"{username} has left the chat");
             await base.OnDisconnectedAsync(e);
         }
 

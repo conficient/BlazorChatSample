@@ -47,7 +47,8 @@ namespace BlazorChatSample.Server
             {
                 endpoints.MapDefaultControllerRoute();
                 // SignalR endpoint routing setup
-                endpoints.MapHub<Hubs.ChatHub>("/chathub");
+                endpoints.MapHub<Hubs.ChatHub>(Shared.ChatClient.HUBURL);
+
                 // version 3.2.0 preview 1 - startup is now removed
                 endpoints.MapFallbackToClientSideBlazor<Client.Program>("index.html");
             });
