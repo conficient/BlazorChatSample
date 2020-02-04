@@ -1,11 +1,12 @@
-﻿@page "/"
-@inject IJSRuntime jsRuntime
+﻿@using BlazorChatSample.Shared 
+@page "/"
+@inject NavigationManager navigationManager
 
 <div class="top-row px-4">
     @if (chatting)
     {
         <p>You are connected as <b>@username</b></p>
-        <button class="btn btn-sm btn-warning ml-md-auto" @onclick="@Disconnect">Disconnect</button>
+        <button class="btn btn-sm btn-warning ml-md-auto" @onclick="@DisconnectAsync">Disconnect</button>
     }
 </div>
 
@@ -47,7 +48,7 @@
             }
             <hr />
             <textarea class="input-lg" placeholder="enter your comment" @bind="@newMessage"></textarea>
-            <button class="btn btn-default" @onclick="@Send">Send</button>
+            <button class="btn btn-default" @onclick="@SendAsync">Send</button>
         </div>
     }
 </div>
@@ -88,13 +89,13 @@
             messages.Clear();
 
             // Create the chat client
-            client = new ChatClient(username, jsRuntime);
+            client = new ChatClient(username, navigationManager);
             // add an event handler for incoming messages
             client.MessageReceived += MessageReceived;
             // start the client
-            Console.WriteLine($"Index: chart starting...");
-            await client.Start();
-            Console.WriteLine($"Index: chart started?");
+            Console.WriteLine("Index: chart starting...");
+            await client.StartAsync();
+            Console.WriteLine("Index: chart started?");
 
             chatting = true;
         }
@@ -127,24 +128,23 @@
         StateHasChanged();
     }
 
-    async Task Disconnect()
+    async Task DisconnectAsync()
     {
         if (chatting)
         {
-            await client.Stop();
-            client.Dispose();
+            await client.StopAsync();
             client = null;
             message = "chat ended";
             chatting = false;
         }
     }
 
-    async Task Send()
+    async Task SendAsync()
     {
         if (chatting && !string.IsNullOrWhiteSpace(newMessage))
         {
             // send message to hub
-            await client.Send(newMessage);
+            await client.SendAsync(newMessage);
             // clear input box
             newMessage = "";
         }

@@ -4,16 +4,24 @@
 </p>
 
 <p>
-    At the present time, Blazor (.NET Core 3 preview 7) cannot use the .NET Core SignalR client library
-    (<a href="https://github.com/aspnet/Blazor/issues/20">see issue #20</a>), so this application
-    uses the <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interop?view=aspnetcore-3.0">Blazor Javascript interop</a>
-    capability to talk to the <a href="https://docs.microsoft.com/en-us/aspnet/core/signalr/javascript-client?view=aspnetcore-2.2">SignalR Javascript client</a>.
+    <span class="badge badge-success">New</span> At last! The SignalR client now works with Blazor WASM - so we can drop
+    the JavaScript client. The app now uses the <code>Microsoft.AspNetCore.SignalR.Client</code> library which
+    is now compatible with the Mono WASM runtime.
+</p>
+<h5>Known Issues</h5>
+<p>
+    There is <a href="https://github.com/mono/mono/issues/18628">a bug</a> in the current mono implementation of WebSockets
+    that means a connection does not close when SignalR closes and disposes a client. This used to trigger the
+    <i>'xxx has left the chat'</i> messages on remaining clients. When this is fixed it should start working again.
 </p>
 <p>
-    This version of the app has been updated for the <a href='https://devblogs.microsoft.com/aspnet/asp-net-core-and-blazor-updates-in-net-core-3-0-preview-7/'>.NET Core 3.0 Preview 7</a>
-    version of Blazor (see https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-3.0#javascript-interop). A few parts of the documentation are not
-    that clear so I will submit a pull request to clarify these. In particular you have to call <code>invokeAsync&lt;object&gt;</code> to invoke a Javascript method even 
-    if it does not return a value.
+    If you want to see how the JavaScript client version worked, I've retained it in
+    [this branch](https://github.com/conficient/BlazorChatSample/tree/netcore-3.2.0-preview1)
+</p>
+<p>
+    This version of the app has been updated for the 
+    <a href='https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-preview-1-release-now-available/'>.NET Core 3.2.0 Preview 1</a>
+    version of Blazor.
 </p>
 <p>
     Source code at <a href="https://github.com/conficient/BlazorChatSample">Github</a>.
