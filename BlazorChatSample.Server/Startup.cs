@@ -29,17 +29,14 @@ namespace BlazorChatSample.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseResponseCompression();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBlazorDebugging();
+                app.UseWebAssemblyDebugging();
             }
 
             app.UseStaticFiles();
-            // version 3.2.0 preview 1 - startup is now removed
-            app.UseClientSideBlazorFiles<Client.Program>();
+            app.UseBlazorFrameworkFiles();  // preview2 change
 
             app.UseRouting();
 
@@ -49,8 +46,7 @@ namespace BlazorChatSample.Server
                 // SignalR endpoint routing setup
                 endpoints.MapHub<Hubs.ChatHub>(Shared.ChatClient.HUBURL);
 
-                // version 3.2.0 preview 1 - startup is now removed
-                endpoints.MapFallbackToClientSideBlazor<Client.Program>("index.html");
+                endpoints.MapFallbackToFile("index.html");  // preview2 change
             });
         }
 

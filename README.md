@@ -2,7 +2,7 @@
 
 [![Build Status](https://dev.azure.com/conficient/BlazorChatSample/_apis/build/status/conficient.BlazorChatSample?branchName=master)](https://dev.azure.com/conficient/BlazorChatSample/_build/latest?definitionId=2&branchName=master)
 
-> Now upgraded for [.NET core 3.2.0 preview 1](https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-preview-1-release-now-available) - please ensure you have installed the latest Blazor templates and VS 2019 preview.
+> Now upgraded for [.NET core 3.2.0 preview 2](https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-preview-2-release-now-available/) - please ensure you have installed the latest Blazor templates and VS 2019 preview.
 
 This application demonstrates the use of [SignalR](https://www.asp.net/signalr) 
 to create a [Blazor](https://blazor.net/) chat application.
@@ -16,10 +16,9 @@ with the Mono WASM runtime. This really simplifies the `ChatClient` code.
 
 ##### Known Issues
 
-There is [a bug](https://github.com/mono/mono/issues/18628") in the current mono implementation of WebSockets
-    that means a connection does not close when SignalR closes and disposes a client. This used to trigger the 
-    _'xxx has left the chat'_ messages on remaining clients. When this is fixed it should start working again.
-
+The [disconnect bug](https://github.com/mono/mono/issues/18628") in the mono implementation of WebSockets
+    has now been fixed. When a client disconnects it correctly disposes and the event
+    reflects in the other clients ("xxxx has left the chat").
 
 If you want to see how the JavaScript client version worked, I've retained 
 it in [this branch](https://github.com/conficient/BlazorChatSample/tree/netcore-3.2.0-preview1)
