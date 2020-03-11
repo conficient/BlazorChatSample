@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
 namespace BlazorChatSample.Server
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
