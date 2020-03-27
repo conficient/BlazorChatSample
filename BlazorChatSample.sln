@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{DC
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorChatSample.Shared", "BlazorChatSample.Shared\BlazorChatSample.Shared.csproj", "{D5007DB1-3CC9-4BD4-9E38-1499E953FE6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChatSample.Shared", "BlazorChatSample.Shared\BlazorChatSample.Shared.csproj", "{D5007DB1-3CC9-4BD4-9E38-1499E953FE6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorChatSamepl.ConsoleApp", "BlazorChatSamepl.ConsoleApp\BlazorChatSamepl.ConsoleApp.csproj", "{B7B33B94-5E62-4DA6-9BC3-120E984E92C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D5007DB1-3CC9-4BD4-9E38-1499E953FE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5007DB1-3CC9-4BD4-9E38-1499E953FE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5007DB1-3CC9-4BD4-9E38-1499E953FE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7B33B94-5E62-4DA6-9BC3-120E984E92C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7B33B94-5E62-4DA6-9BC3-120E984E92C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7B33B94-5E62-4DA6-9BC3-120E984E92C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7B33B94-5E62-4DA6-9BC3-120E984E92C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
