@@ -23,13 +23,17 @@ namespace BlazorChatSample.Shared
         /// Ctor: create a new client for the given hub URL
         /// </summary>
         /// <param name="siteUrl">The base URL for the site, e.g. https://localhost:1234 </param>
+        /// <remarks>
+        /// Changed client to accept just the base server URL so any client can use it, including ConsoleApp!
+        /// </remarks>
         public ChatClient(string username, string siteUrl)
         {
-            // save username
+            // check inputs
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentNullException(nameof(username));
             if (string.IsNullOrWhiteSpace(siteUrl))
                 throw new ArgumentNullException(nameof(siteUrl));
+            // save username
             _username = username;
             // set the hub URL
             _hubUrl = siteUrl.TrimEnd('/') + HUBURL;

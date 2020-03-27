@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Threading.Tasks;
 
-namespace BlazorChatSamepl.ConsoleApp
+namespace BlazorChatSample.ConsoleApp
 {
     class Program
     {
