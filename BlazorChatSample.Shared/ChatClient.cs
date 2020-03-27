@@ -16,22 +16,29 @@ namespace BlazorChatSample.Shared
     {
         public const string HUBURL = "/ChatHub";
 
-        private readonly NavigationManager _navigationManager;
-
+        private readonly string _hubUrl;
         private HubConnection _hubConnection;
 
         /// <summary>
         /// Ctor: create a new client for the given hub URL
         /// </summary>
-        /// <param name="hubUrl"></param>
-        public ChatClient(string username, NavigationManager navigationManager)
+        /// <param name="siteUrl">The base URL for the site, e.g. https://localhost:1234 </param>
+        /// <remarks>
+        /// Changed client to accept just the base server URL so any client can use it, including ConsoleApp!
+        /// </remarks>
+        public ChatClient(string username, string siteUrl)
         {
-            _navigationManager = navigationManager;
-            // save username
+            // check inputs
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentNullException(nameof(username));
+            if (string.IsNullOrWhiteSpace(siteUrl))
+                throw new ArgumentNullException(nameof(siteUrl));
+            // save username
             _username = username;
+            // set the hub URL
+            _hubUrl = siteUrl.TrimEnd('/') + HUBURL;
         }
+
         /// <summary>
         /// Name of the chatter
         /// </summary>
@@ -51,7 +58,7 @@ namespace BlazorChatSample.Shared
             {
                 // create the connection using the .NET SignalR client
                 _hubConnection = new HubConnectionBuilder()
-                    .WithUrl(_navigationManager.ToAbsoluteUri(HUBURL))
+                    .WithUrl(_hubUrl)
                     .Build();
                 Console.WriteLine("ChatClient: calling Start()");
 

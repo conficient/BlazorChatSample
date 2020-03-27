@@ -89,7 +89,8 @@
             messages.Clear();
 
             // Create the chat client
-            client = new ChatClient(username, navigationManager);
+            string baseUrl = navigationManager.BaseUri;
+            client = new ChatClient(username, baseUrl);
             // add an event handler for incoming messages
             client.MessageReceived += MessageReceived;
             // start the client
