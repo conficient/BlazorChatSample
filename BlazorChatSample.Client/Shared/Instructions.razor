@@ -1,30 +1,30 @@
 ﻿<p>
-    This application demonstrates the use of <a href="https://www.asp.net/signalr">SignalR</a>
-    to create a <a href="https://blazor.net/">Blazor</a> chat application.
+  This application demonstrates the use of <a href="https://www.asp.net/signalr">SignalR</a>
+  to create a <a href="https://blazor.net/">Blazor</a> chat application.
 </p>
 
 <p>
-    <span class="badge badge-success">New</span> At last! The SignalR client now works with Blazor WASM - so we can drop
-    the JavaScript client. The app now uses the <code>Microsoft.AspNetCore.SignalR.Client</code> library which
-    is now compatible with the Mono WASM runtime.
-</p>
-<h5>Known Issues</h5>
+  <span class="badge badge-success">New</span> The app now uses the <code>Microsoft.AspNetCore.SignalR.Client</code>
+  library which is now compatible with the Mono WASM runtime. This really simplifies the ChatClient code.
+    </p>
 <p>
-    There is <a href="https://github.com/mono/mono/issues/18628">a bug</a> in the current mono implementation of WebSockets
-    that means a connection does not close when SignalR closes and disposes a client. This used to trigger the
-    <i>'xxx has left the chat'</i> messages on remaining clients. When this is fixed it should start working again.
+    Previously this sample used JavaScript SignalR client. If you want to see how the JavaScript client version worked, I've retained
+    it in <a href="https://github.com/conficient/BlazorChatSample/tree/netcore-3.2.0-preview1">this branch</a>.
+</p>
+<h5>Demo</h5>
+<p>
+    A demo application is available at https://blazorchatsample.azurewebsites.net
+</p>
+<h5>Improvements &amp; Suggestions</h5>
+<p>
+    If you have any improvements or suggestions please submit as issues/pull requests on the Github repo.
+</p>
+<h5>Acknowledgements</h5>
+<p>
+    Thanks to Code-Boxx for the article https://code-boxx.com/responsive-css-speech-bubbles/ that helped me create simple CSS speech bubbles that improve the layout
 </p>
 <p>
-    If you want to see how the JavaScript client version worked, I've retained it in
-    [this branch](https://github.com/conficient/BlazorChatSample/tree/netcore-3.2.0-preview1)
-</p>
-<p>
-    This version of the app has been updated for the 
-    <a href='https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-preview-1-release-now-available/'>.NET Core 3.2.0 Preview 1</a>
-    version of Blazor.
-</p>
-<p>
-    Source code at <a href="https://github.com/conficient/BlazorChatSample">Github</a>.
+  Source code at <a href="https://github.com/conficient/BlazorChatSample">Github</a>.
 </p>
 
 <hr />
