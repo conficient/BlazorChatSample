@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest' # try out
+  vmImage: 'windows-latest' # publish needs to be win-x86
 
 variables:
   buildConfiguration: 'Release'
