@@ -16,14 +16,18 @@ namespace BlazorChatSample.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddNewtonsoftJson();
+            services.AddControllersWithViews(); 
+
+            // I think this was pre-Core3.x
+            //services.AddMvc();
             services.AddSignalR();
 
-            services.AddResponseCompression(opts =>
-            {
-                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-                    new[] { "application/octet-stream" });
-            });
+            // not sure this is required any more
+            //services.AddResponseCompression(opts =>
+            //{
+            //    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+            //        new[] { "application/octet-stream" });
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
