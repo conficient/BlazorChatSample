@@ -19,14 +19,35 @@ steps:
     packageType: 'sdk'
     version: '3.1.x'
 
-- script: dotnet restore
-  displayName: 'restore'
-  
-- script: dotnet build --configuration $(buildConfiguration) BlazorChatSample.sln
-  displayName: 'Building $(buildConfiguration)...'
+- task: DotNetCoreCLI@2
+  displayName: 'Restore packages'
+  inputs:
+    command: 'restore'
+    projects: 'BlazorChatSample.sln'
+    feedsToUse: 'select'
 
-- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --framework netcoreapp3.1 --self-contained true --runtime win-x86 BlazorChatSample.Server\BlazorChatSample.Server.csproj
-  displayName: 'Publishing $(buildConfiguration)...'
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
+  inputs:
+    command: 'build'
+    projects: 'BlazorChatSample.sln'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'publish'
+  inputs:
+    command: 'publish'
+    arguments: '-configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --self-contained true --runtime win-x86
+
+
+- task: DotNetCoreCLI@2
+  displayName: 'publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'BlazorChatSample.Server\BlazorChatSample.Server.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework netcoreapp3.1  --self-contained true --runtime win-x86'
+    modifyOutputPath: false
   
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing Build Artifacts...'
