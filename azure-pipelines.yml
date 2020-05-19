@@ -37,7 +37,7 @@ steps:
   displayName: 'publish'
   inputs:
     command: 'publish'
-    arguments: '-configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --self-contained true --runtime win-x86'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --self-contained true --runtime win-x86'
 
 - task: DotNetCoreCLI@2
   displayName: 'publish'
