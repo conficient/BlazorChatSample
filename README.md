@@ -2,7 +2,7 @@
 
 [![Build Status](https://dev.azure.com/conficient/BlazorChatSample/_apis/build/status/conficient.BlazorChatSample?branchName=master)](https://dev.azure.com/conficient/BlazorChatSample/_build/latest?definitionId=2&branchName=master)
 
-> Now upgraded for [.NET core 3.2.0 preview 4](https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-preview-4-release-now-available/) - 
+> Now upgraded for [.NET core 3.2.0 rtm](https://devblogs.microsoft.com/aspnet/blazor-webassembly-3-2-0-now-available/) - 
 > please ensure you have installed the latest Blazor templates and VS 2019 preview.
 
 This application demonstrates the use of [SignalR](https://www.asp.net/signalr) 
