@@ -45,7 +45,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'BlazorChatSample.Server\BlazorChatSample.Server.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework netcoreapp3.1  --self-contained true --runtime win-x86'
+    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework net5.0  --self-contained true --runtime win-x86'
     modifyOutputPath: false
   
 - task: PublishBuildArtifacts@1
