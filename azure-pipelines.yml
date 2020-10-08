@@ -14,10 +14,10 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Installing .NET SDK 5.0'
+  displayName: 'Installing .NET Core SDK 5.0'
   inputs:
     packageType: 'sdk'
-    version: '5.0.x'
+    version: '5.0.100-rc.1.20452.10'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
