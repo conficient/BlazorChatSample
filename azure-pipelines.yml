@@ -14,10 +14,10 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Installing .NET Core SDK 3.1.x'
+  displayName: 'Installing .NET Core SDK 5.0'
   inputs:
     packageType: 'sdk'
-    version: '3.1.x'
+    version: '5.0.100-rc.1.20452.10'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
@@ -45,7 +45,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'BlazorChatSample.Server\BlazorChatSample.Server.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework netcoreapp3.1  --self-contained true --runtime win-x86'
+    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework net5.0  --self-contained true --runtime win-x86'
     modifyOutputPath: false
   
 - task: PublishBuildArtifacts@1
