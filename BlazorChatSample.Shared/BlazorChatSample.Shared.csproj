@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <!--<PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.2.0-preview1.20073.1" />-->
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-rc.1.20451.17" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-rc.1.20451.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

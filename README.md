@@ -2,7 +2,8 @@
 
 [![Build Status](https://dev.azure.com/conficient/BlazorChatSample/_apis/build/status/conficient.BlazorChatSample?branchName=master)](https://dev.azure.com/conficient/BlazorChatSample/_build/latest?definitionId=2&branchName=master)
 
-> Now upgraded for [.NET 5 RC-1](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-5-release-candidate-1/) - many thanks [Turochamp](https://github.com/Turochamp)! Please ensure you have installed the latest Blazor templates and VS 2019 preview.
+> Now upgraded for [.NET 5 RTM](https://devblogs.microsoft.com/aspnet/announcing-asp-net-core-in-net-5/) - Please ensure you have the .NET 5 SDK loaded and VS 2019 v16.8 or later.
+> One change since the release candidates is that the scoped CSS is now `AppName.styles.css` in place of the `_framework/scoped.styles.css`
 
 This application demonstrates the use of [SignalR](https://www.asp.net/signalr) 
 to create a [Blazor](https://blazor.net/) chat application.
@@ -30,7 +31,7 @@ If you have any improvements or suggestions please submit as issues/pull request
 
 ### Acknowledgements
 
-Many thanks to [Turochamp](https://github.com/Turochamp) who did the upgrade to .NET 5 !
+Many thanks to [Turochamp](https://github.com/Turochamp) who did the upgrade to .NET 5 RC1!
 
 Thanks to Code-Boxx for the article https://code-boxx.com/responsive-css-speech-bubbles/ 
 that helped me create simple CSS speech bubbles that improve the layout.
