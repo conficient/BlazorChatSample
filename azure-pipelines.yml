@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: 'windows-latest' # publish needs to be win-x86
@@ -14,10 +14,10 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Installing .NET Core SDK 5.0'
+  displayName: 'Installing .NET Core SDK 6.0'
   inputs:
     packageType: 'sdk'
-    version: '5.0.x'
+    version: '6.0.x'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
@@ -31,13 +31,13 @@ steps:
   inputs:
     command: 'build'
     projects: 'BlazorChatSample.sln'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: 'publish'
   inputs:
     command: 'publish'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --self-contained true --runtime win-x86'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --self-contained true --runtime win-x86 --no-build'
 
 - task: DotNetCoreCLI@2
   displayName: 'publish'
@@ -45,7 +45,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'BlazorChatSample.Server\BlazorChatSample.Server.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework net5.0  --self-contained true --runtime win-x86'
+    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework net6.0  --self-contained true --runtime win-x86'
     modifyOutputPath: false
   
 - task: PublishBuildArtifacts@1
